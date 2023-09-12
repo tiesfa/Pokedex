@@ -1,30 +1,30 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <main class="container font-press-start">
+    <div class="grid md:grid-cols-2 md:grid-rows-3 gap-4 auto-rows-min md:grid-flow-col py-4 md:min-h-screen">
+      <div class="text-3xl text-light uppercase tracking-wider md:col-span-1 md:row-span-1">
+        <h1>Pokedex</h1>
+      </div>
+      <div class="md:col-span-1 md:row-span-1">
+        <DisplayBlock />
+      </div>
+      <div class="md:col-span-1 md:row-span-1">
+        <InfoBlock />
+      </div>
+      <div class="md:col-span-2 md:row-span-3">
+        <NavBlock />
+      </div>
+    </div>
+  </main>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<script>
+import DisplayBlock from './components/DisplayBlock.vue';
+import InfoBlock from './components/InfoBlock.vue';
+import NavBlock from './components/NavBlock.vue';
+
+export default {
+  components: {
+    DisplayBlock, InfoBlock, NavBlock,
+  },
+};
+</script>
