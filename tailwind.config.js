@@ -10,7 +10,7 @@ export default {
       padding: '1rem',
     },
     fontFamily: {
-      'press-start': ['"Press Start 2P"', 'cursive'],
+      'press-start': ['"Press Start 2P"', 'sans-serif'],
     },
     extend: {
       colors: {

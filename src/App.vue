@@ -1,16 +1,16 @@
 <template>
-  <main class="container font-press-start">
-    <div class="grid md:grid-cols-2 md:grid-rows-3 gap-4 auto-rows-min md:grid-flow-col py-4 md:min-h-screen">
-      <div class="text-3xl text-light uppercase tracking-wider md:col-span-1 md:row-span-1">
-        <h1>Pokedex</h1>
-      </div>
-      <div class="md:col-span-1 md:row-span-1">
+  <main v-cloak class="container font-press-start">
+    <div class="grid md:grid-cols-2 md:grid-flow-col gap-4 lg:gap-8 py-4 md:py-8">
+      <div class="md:col-span-1 flex flex-col gap-4 lg:gap-8">
+        <div class="text-xl md:text-3xl text-light uppercase tracking-wider">
+          <h1>Pokedex</h1>
+        </div>
         <DisplayBlock />
-      </div>
-      <div class="md:col-span-1 md:row-span-1">
         <InfoBlock />
       </div>
-      <div class="md:col-span-2 md:row-span-3">
+      <div class="md:col-span-2 flex flex-col gap-4 lg:gap-8">
+        <SelectorBlock />
+        <ListBlock />
         <NavBlock />
       </div>
     </div>
@@ -20,11 +20,13 @@
 <script>
 import DisplayBlock from './components/DisplayBlock.vue';
 import InfoBlock from './components/InfoBlock.vue';
+import SelectorBlock from './components/SelectorBlock.vue';
+import ListBlock from './components/ListBlock.vue';
 import NavBlock from './components/NavBlock.vue';
 
 export default {
   components: {
-    DisplayBlock, InfoBlock, NavBlock,
+    DisplayBlock, InfoBlock, SelectorBlock, ListBlock, NavBlock,
   },
 };
 </script>
