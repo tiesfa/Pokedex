@@ -1,7 +1,7 @@
 <template>
   <div class="text-white text-xs md:text-base bg-dark p-2 md:p-4 leading-loose h-36 md:h-[38rem] overflow-scroll">
-    <ul class="list-disc">
-      <li v-for="pokemon in pokemonList.results" :key="pokemon">#{{ (pokemon.url.split('/'))[6] }} - {{ pokemon.name.toUpperCase() }}</li>
+    <ul>
+      <li v-for="pokemon in pokemonList.results" :key="pokemon.url.split('/')[6]">#{{ pokemon.url.split('/')[6] }} - {{ pokemon.name.toUpperCase() }}</li>
     </ul>
   </div>
 </template>

@@ -5,3 +5,17 @@
         </div>
     </div>
 </template>
+
+<script>
+    export default {
+        props: ['id'],
+        mounted() {
+            fetch(`https://pokeapi.co/api/v2/pokemon/${this.id}/`)
+            .then(response => response.json())
+            .then(data => this.pokemonList = data)
+            .catch(error => {
+            console.error('Error fetching Pokémon list:', error);
+            });
+        }
+    }
+</script>
