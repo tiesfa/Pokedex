@@ -31,11 +31,7 @@ const fetchPokemon = async (pokemonId) => {
   }
 };
 
-onMounted(() => {
-  fetchPokemon(props.id);
-});
-
 watch(() => props.id, (newId) => {
   fetchPokemon(newId);
-});
+}, { immediate: true });
 </script>
