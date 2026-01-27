@@ -7,7 +7,7 @@
           class="w-full text-left hover:text-accent-pastel transition-colors"
           :class="{ 'text-accent-candyRed font-bold': activePokemon === extractId(pokemon.url) }"
         >
-          #{{ extractId(pokemon.url) }} - {{ pokemon.name.toUpperCase() }}
+          #{{ extractId(pokemon.url).padStart(3, '0') }} - {{ pokemon.name.toUpperCase() }}
         </button>
       </li>
     </ul>
@@ -16,27 +16,33 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
+
+const props = defineProps(['genSettings']);
+const emit = defineEmits(['pokemon-selected']);
 
 const pokemonList = ref([]);
 const activePokemon = ref(null);
-const emit = defineEmits(['pokemon-selected']);
+
 const extractId = (url) => url.split('/')[6];
 
-onMounted(async () => {
+const fetchList = async () => {
+  const { offset, limit } = props.genSettings || { offset: 0, limit: 151 };
   try {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=151');
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
     const data = await response.json();
     pokemonList.value = data;
-    
-    // Select first Pokémon on load
     if (data.results.length > 0) {
-      setPokemon(extractId(data.results[0].url));
+      const firstId = extractId(data.results[0].url);
+      setPokemon(firstId);
     }
   } catch (error) {
-    console.error('Error fetching Pokémon list:', error);
+    console.error('Error:', error);
   }
-});
+};
+
+watch(() => props.genSettings, fetchList, { deep: true });
+onMounted(fetchList);
 
 function setPokemon(id) {
   activePokemon.value = id;

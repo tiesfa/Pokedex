@@ -11,8 +11,8 @@
       </div>
       
       <div class="md:col-span-2 flex flex-col gap-4 lg:gap-8">
-        <SelectorBlock />
-        <ListBlock @pokemon-selected="updateId" />
+        <SelectorBlock @change-generation="(val) => currentGenSettings = val" />
+        <ListBlock :gen-settings="currentGenSettings" @pokemon-selected="updateId" />
         <NavBlock :current-id="selectedId" @select="updateId" @search="updateId" />
       </div>
     </div>
@@ -26,6 +26,8 @@ import InfoBlock from './components/InfoBlock.vue';
 import SelectorBlock from './components/SelectorBlock.vue';
 import ListBlock from './components/ListBlock.vue';
 import NavBlock from './components/NavBlock.vue';
+
+const currentGenSettings = ref({ offset: 0, limit: 151 });
 
 // Reactive "State" to hold the current ID
 const selectedId = ref(1);
