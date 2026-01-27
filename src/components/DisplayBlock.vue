@@ -1,21 +1,41 @@
 <template>
-    <div class="bg-light rounded-bl-3xl p-8 md:p-16">
-        <div class="bg-accent-pastel">
-            <img class="w-full" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/22.png" alt="">
-        </div>
+  <div class="bg-light rounded-bl-3xl p-8 md:p-16">
+    <div v-if="pokemon" class="bg-accent-pastel">
+      <img 
+        class="w-full" 
+        :src="pokemon.sprites.other['official-artwork'].front_default" 
+        :alt="pokemon.name"
+      />
     </div>
+    <div v-else class="flex justify-center items-center h-48">
+      <p class="text-dark animate-pulse">Loading...</p>
+    </div>
+  </div>
 </template>
 
-<script>
-    export default {
-        props: ['id'],
-        mounted() {
-            fetch(`https://pokeapi.co/api/v2/pokemon/${this.id}/`)
-            .then(response => response.json())
-            .then(data => this.pokemonList = data)
-            .catch(error => {
-            console.error('Error fetching Pokémon list:', error);
-            });
-        }
-    }
+<script setup>
+import { ref, onMounted, watch } from 'vue';
+
+const props = defineProps(['id']);
+const pokemon = ref(null);
+
+const fetchPokemon = async (pokemonId) => {
+  if (!pokemonId) return;
+  
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`);
+    const data = await response.json();
+    pokemon.value = data;
+  } catch (error) {
+    console.error('Error fetching Pokémon details:', error);
+  }
+};
+
+onMounted(() => {
+  fetchPokemon(props.id);
+});
+
+watch(() => props.id, (newId) => {
+  fetchPokemon(newId);
+});
 </script>
