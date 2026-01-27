@@ -10,7 +10,7 @@
         @keyup.enter="handleSearch"
       />
       <button
-        class="bg-dark text-light text-xs md:text-sm p-2 md:p-4 relative z-[2] transition duration-150 ease-in-out focus:outline-none focus:ring-0"
+        class="bg-dark text-light text-xs md:text-sm p-2 md:p-4 relative z-[2]"
         type="button" 
         @click="handleSearch"
       >
@@ -20,16 +20,18 @@
 
     <div class="flex gap-4 lg:gap-8">
       <button 
-        @click="$emit('select', 151)"
-        class="bg-dark text-light text-xs md:text-sm p-2 md:p-4 w-full hover:bg-gray-800"
+        @click="navigate(-1)"
+        :disabled="currentId <= 1"
+        class="bg-dark text-light text-xs md:text-sm p-2 md:p-4 w-full hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        151 - Mew
+        &lt; Previous
       </button>
       <button 
-        @click="$emit('select', 2)"
-        class="bg-dark text-light text-xs md:text-sm p-2 md:p-4 w-full hover:bg-gray-800"
+        @click="navigate(1)"
+        :disabled="currentId >= 1025"
+        class="bg-dark text-light text-xs md:text-sm p-2 md:p-4 w-full hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        002 - Ivysaur
+        Next &gt;
       </button>
     </div>
   </div>
@@ -38,12 +40,28 @@
 <script setup>
 import { ref } from 'vue';
 
-const searchQuery = ref('');
+const props = defineProps({
+  currentId: {
+    type: [Number, String],
+    default: 1
+  }
+});
+
 const emit = defineEmits(['search', 'select']);
+const searchQuery = ref('');
+
+// The API handles the logic of finding the right Pokémon
 const handleSearch = () => {
   if (searchQuery.value.trim()) {
     emit('search', searchQuery.value.toLowerCase());
     searchQuery.value = '';
+  }
+};
+
+const navigate = (direction) => {
+  const newId = Number(props.currentId) + direction;
+  if (newId >= 1) {
+    emit('select', newId);
   }
 };
 </script>

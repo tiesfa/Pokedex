@@ -13,7 +13,7 @@
       <div class="md:col-span-2 flex flex-col gap-4 lg:gap-8">
         <SelectorBlock />
         <ListBlock @pokemon-selected="updateId" />
-        <NavBlock />
+        <NavBlock :current-id="selectedId" @select="updateId" @search="updateId" />
       </div>
     </div>
   </main>
