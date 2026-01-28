@@ -34,6 +34,13 @@
         Next &gt;
       </button>
     </div>
+    <button 
+      @click="toggleShiny"
+      class="bg-dark text-light text-xs md:text-sm p-2 md:p-4 w-full hover:bg-gray-800 transition-colors"
+      :class="{ 'text-accent-candyRed': isShiny }"
+    >
+      Version: {{ isShiny ? 'SHINY' : 'NORMAL' }}
+    </button>
   </div>
 </template>
 
@@ -47,8 +54,14 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['search', 'select']);
+const emit = defineEmits(['search', 'select', 'toggle-shiny']);
 const searchQuery = ref('');
+const isShiny = ref(false);
+
+const toggleShiny = () => {
+  isShiny.value = !isShiny.value;
+  emit('toggle-shiny', isShiny.value);
+};
 
 // The API handles the logic of finding the right Pokémon
 const handleSearch = () => {

@@ -3,7 +3,7 @@
     <div v-if="pokemon" class="bg-accent-pastel">
       <img 
         class="w-full" 
-        :src="pokemon.sprites.other['official-artwork'].front_default" 
+        :src="imageUrl" 
         :alt="pokemon.name"
       />
     </div>
@@ -14,20 +14,24 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 
-const props = defineProps(['id']);
+const props = defineProps(['id', 'isShiny']);
 const pokemon = ref(null);
 
-const fetchPokemon = async (pokemonId) => {
-  if (!pokemonId) return;
+const imageUrl = computed(() => {
+  if (!pokemon.value) return '';
   
+  const artwork = pokemon.value.sprites.other['official-artwork'];
+  return props.isShiny ? artwork.front_shiny : artwork.front_default;
+});
+
+const fetchPokemon = async (pokemonId) => {
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`);
-    const data = await response.json();
-    pokemon.value = data;
+    pokemon.value = await response.json();
   } catch (error) {
-    console.error('Error fetching Pokémon details:', error);
+    console.error(error);
   }
 };
 
