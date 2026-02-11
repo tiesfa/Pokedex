@@ -9,7 +9,7 @@ A sleek, high-performance Pokédex built with Vue 3 (Composition API) and Tailwi
 - **Real-time Search**: Instant filtering by name or ID using Vue 3 computed properties
 - **Responsive Design**: Fully optimized for mobile, tablet, and desktop screens using Tailwind
 - **Optimized Performance**: Lazy-loading images and efficient API handling for a smooth user experience
-- **Shiny Preview Button**: Quick dedicated button to toggle between the normal- and the shiny Pokemon form
+- **Version Button**: Quick dedicated button to toggle between the normal- and the shiny Pokemon form
 
 ## 🛠️ Tech Stack
 
@@ -43,7 +43,7 @@ npm run build
 ```
 ## 🎨 Design Philosophy
 
-The goal was to create a modern Pokémon Dex with a quick, compact, user friendly UI.
+The goal was to create a modern Pokédex with a quick, compact, user friendly UI.
 
 ---
 
